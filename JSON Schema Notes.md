@@ -525,6 +525,21 @@ null			// valid
 
 ## `$ref`
 
+A schema can reference another schema using the `$ref` keyword.
+
+```JSON
+{
+	"$id": "https://example.com/schemas/customer",
+	"type": "object",
+	"properties": {
+		"first_name": { "type": "string" },
+		"last_name": { "type": "string" },
+		"shipping_address": { "$ref": "/schemas/address" },
+		"billing_address": { "$ref": "/schemas/address" }
+	}
+}
+```
+
 ## `$def`
 
 
