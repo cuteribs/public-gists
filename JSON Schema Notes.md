@@ -525,21 +525,35 @@ null			// valid
 
 ## `$ref`
 
-A schema can reference another schema using the `$ref` keyword.
+A schema can reference another schema using the `$ref` keyword with `JSON pointer`.
 
 ```JSON
 {
 	"$id": "https://example.com/schemas/customer",
 	"type": "object",
 	"properties": {
-		"first_name": { "type": "string" },
-		"last_name": { "type": "string" },
-		"shipping_address": { "$ref": "/schemas/address" },
-		"billing_address": { "$ref": "/schemas/address" }
+		"address": { "type": "string" },
+		"shipping_address": { "$ref": "https://example.com/schemas/customer#/properties/address" },
+		"billing_address": { "$ref": "/schemas/customer#/properties/address" },
+		"contact_address": { "$ref": "#/properties/address" }
 	}
 }
 ```
 
-## `$def`
+## `$defs` (previously `definitions`)
 
+```JSON
+{
+	"$id": "https://example.com/schemas/customer",
+	"type": "object",
+	"properties": {
+		"shipping_address": { "$ref": "https://example.com/schemas/customer#/$defs/address" },
+		"billing_address": { "$ref": "/schemas/customer#/$defs/address" },
+		"contact_address": { "$ref": "#/$defs/address" }
+	},
+	"$defs": {
+		"address": { "type": "string" }
+	}
+}
+```
 
